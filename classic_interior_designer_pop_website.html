@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Interior Designer | Luxury POP & Plaster Interiors</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#D4AF37',
+                            bronze: '#B8860B',
+                            charcoal: '#1A1918',
+                            dark: '#121110',
+                            beige: '#F9F6F0',
+                            cream: '#EFEBE4',
+                            gray: '#2A2825'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA771C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-gradient-bg {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+        }
+        .hero-pattern {
+            background-color: #121110;
+            background-image: radial-gradient(rgba(212, 175, 55, 0.08) 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+        .glass-panel {
+            background: rgba(26, 25, 24, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .before-after-slider {
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-gray-100 font-sans antialiased selection:bg-brand-gold selection:text-black">
+
+    <!-- Top Contact Bar & Admin Edit Toggle Bar -->
+    <div class="bg-brand-charcoal border-b border-brand-gold/20 text-xs py-2 px-4 text-gray-300 relative z-50">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <!-- Top Contact Information -->
+            <div class="flex flex-wrap items-center space-x-4 sm:space-x-6">
+                <a href="tel:+919876543210" class="flex items-center space-x-1.5 hover:text-brand-gold transition">
+                    <i data-lucide="phone" class="w-3.5 h-3.5 text-brand-gold"></i>
+                    <span class="editable-text" data-key="top-phone">+91 98765 43210</span>
+                </a>
+                <a href="https://wa.me/919876543210" target="_blank" class="flex items-center space-x-1.5 hover:text-emerald-400 transition">
+                    <i data-lucide="message-square" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <span class="editable-text" data-key="top-whatsapp">WhatsApp: +91 98765 43210</span>
+                </a>
+                <a href="mailto:info@classicinteriordesigner.com" class="hidden md:flex items-center space-x-1.5 hover:text-brand-gold transition">
+                    <i data-lucide="mail" class="w-3.5 h-3.5 text-brand-gold"></i>
+                    <span class="editable-text" data-key="top-email">info@classicinteriordesigner.com</span>
+                </a>
+                <span class="hidden lg:flex items-center space-x-1.5 text-gray-400">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-brand-gold"></i>
+                    <span class="editable-text" data-key="top-hours">Mon - Sat: 9:00 AM - 8:00 PM</span>
+                </span>
+            </div>
+
+            <!-- Edit Mode Toggle & Controls -->
+            <div class="flex items-center space-x-3 ml-auto">
+                <button onclick="toggleEditMode()" id="editModeBtn" class="px-3 py-1 rounded-full border border-brand-gold/40 bg-brand-gold/10 hover:bg-brand-gold hover:text-brand-dark transition font-semibold flex items-center space-x-1.5 text-brand-gold">
+                    <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                    <span id="editModeText">Enable Edit Mode</span>
+                </button>
+                <button onclick="togglePriceCustomizer()" class="px-3 py-1 rounded-full border border-brand-gold/60 bg-brand-gold/20 hover:bg-brand-gold hover:text-brand-dark transition font-semibold flex items-center space-x-1.5 text-brand-gold">
+                    <i data-lucide="dollar-sign" class="w-3.5 h-3.5"></i>
+                    <span>Set POP Rates</span>
+                </button>
+                <button onclick="toggleCustomizerDrawer()" class="px-3 py-1 rounded-full border border-white/20 hover:border-brand-gold transition font-semibold flex items-center space-x-1.5 text-gray-200">
+                    <i data-lucide="palette" class="w-3.5 h-3.5"></i>
+                    <span>Theme</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW FEATURE: Decoration & POP Price Customizer Modal / Drawer -->
+    <div id="priceCustomizerDrawer" class="hidden fixed top-20 right-4 z-50 w-80 sm:w-96 bg-brand-charcoal border-2 border-brand-gold rounded-2xl p-5 shadow-2xl space-y-4 max-h-[85vh] overflow-y-auto">
+        <div class="flex items-center justify-between border-b border-brand-gold/30 pb-3">
+            <h4 class="font-serif font-bold text-white text-base flex items-center gap-2">
+                <i data-lucide="sliders" class="w-5 h-5 text-brand-gold"></i> POP Rate & Cost Settings
+            </h4>
+            <button onclick="togglePriceCustomizer()" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+        </div>
+        <p class="text-xs text-gray-300">Set your rates below. These prices will automatically update the Cost Estimator across the site in real-time.</p>
+
+        <!-- Rate Inputs -->
+        <div class="space-y-3">
+            <h5 class="text-xs font-bold uppercase tracking-wider text-brand-gold">1. POP Design Tier Rates (₹ / sq.ft)</h5>
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <label class="text-xs text-gray-300">Basic Cove Tier</label>
+                    <input type="number" id="rateBasic" value="115" oninput="updatePriceRatesFromAdmin()" class="w-24 bg-brand-dark border border-white/20 rounded px-2 py-1 text-white text-xs text-right font-bold focus:border-brand-gold outline-none">
+                </div>
+                <div class="flex items-center justify-between">
+                    <label class="text-xs text-gray-300">Premium Layered Tier</label>
+                    <input type="number" id="ratePremium" value="165" oninput="updatePriceRatesFromAdmin()" class="w-24 bg-brand-dark border border-white/20 rounded px-2 py-1 text-white text-xs text-right font-bold focus:border-brand-gold outline-none">
+                </div>
+                <div class="flex items-center justify-between">
+                    <label class="text-xs text-gray-300">Luxury + Moulding Tier</label>
+                    <input type="number" id="rateLuxury" value="230" oninput="updatePriceRatesFromAdmin()" class="w-24 bg-brand-dark border border-white/20 rounded px-2 py-1 text-white text-xs text-right font-bold focus:border-brand-gold outline-none">
+                </div>
+            </div>
+
+            <h5 class="text-xs font-bold uppercase tracking-wider text-brand-gold pt-2 border-t border-white/10">2. Paint Finish Options (₹ / sq.ft)</h5>
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <label class="text-xs text-gray-300">Acrylic Emulsion Finish</label>
+                    <input type="number" id="ratePaintAcrylic" value="35" oninput="updatePriceRatesFromAdmin()" class="w-24 bg-brand-dark border border-white/20 rounded px-2 py-1 text-white text-xs text-right font-bold focus:border-brand-gold outline-none">
+                </div>
+                <div class="flex items-center justify-between">
+                    <label class="text-xs text-gray-300">Velvet Matte Royal Polish</label>
+                    <input type="number" id="ratePaintVelvet" value="55" oninput="updatePriceRatesFromAdmin()" class="w-24 bg-brand-dark border border-white/20 rounded px-2 py-1 text-white text-xs text-right font-bold focus:border-brand-gold outline-none">
+                </div>
+                <div class="flex items-center justify-between">
+                    <label class="text-xs text-gray-300">Luxe Metallic / Texture Accent</label>
+                    <input type="number" id="ratePaintLuxe" value="85" oninput="updatePriceRatesFromAdmin()" class="w-24 bg-brand-dark border border-white/20 rounded px-2 py-1 text-white text-xs text-right font-bold focus:border-brand-gold outline-none">
+                </div>
+            </div>
+
+            <h5 class="text-xs font-bold uppercase tracking-wider text-brand-gold pt-2 border-t border-white/10">3. Fixed Add-on Costs</h5>
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <label class="text-xs text-gray-300">LED Track Base Price (₹)</label>
+                    <input type="number" id="rateLEDTrack" value="2500" oninput="updatePriceRatesFromAdmin()" class="w-24 bg-brand-dark border border-white/20 rounded px-2 py-1 text-white text-xs text-right font-bold focus:border-brand-gold outline-none">
+                </div>
+                <div class="flex items-center justify-between">
+                    <label class="text-xs text-gray-300">Labor Share Ratio (%)</label>
+                    <input type="number" id="rateLaborRatio" value="30" oninput="updatePriceRatesFromAdmin()" class="w-24 bg-brand-dark border border-white/20 rounded px-2 py-1 text-white text-xs text-right font-bold focus:border-brand-gold outline-none">
+                </div>
+            </div>
+
+            <button onclick="saveRatesNotification()" class="w-full mt-3 py-2 rounded bg-brand-gold text-brand-dark font-bold text-xs uppercase tracking-wider hover:opacity-95 transition">
+                Apply & Save POP Rates
+            </button>
+            <p id="saveRatesMsg" class="text-[11px] text-center font-bold text-emerald-400 hidden">Rates updated successfully!</p>
+        </div>
+    </div>
+
+    <!-- Theme Customizer Sliding Drawer -->
+    <div id="customizerDrawer" class="hidden fixed top-24 right-4 z-50 w-72 bg-brand-charcoal border border-brand-gold/40 rounded-2xl p-4 shadow-2xl space-y-4">
+        <div class="flex items-center justify-between border-b border-white/10 pb-2">
+            <h4 class="font-serif font-bold text-white text-sm flex items-center gap-2">
+                <i data-lucide="sliders" class="w-4 h-4 text-brand-gold"></i> Theme Controls
+            </h4>
+            <button onclick="toggleCustomizerDrawer()" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+        </div>
+        
+        <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">Accent Gold Tone</label>
+            <div class="flex gap-2">
+                <button onclick="setThemeAccent('#D4AF37')" class="w-7 h-7 rounded-full bg-[#D4AF37] border border-white/20"></button>
+                <button onclick="setThemeAccent('#E6C670')" class="w-7 h-7 rounded-full bg-[#E6C670] border border-white/20"></button>
+                <button onclick="setThemeAccent('#FF9900')" class="w-7 h-7 rounded-full bg-[#FF9900] border border-white/20"></button>
+                <button onclick="setThemeAccent('#00C9A7')" class="w-7 h-7 rounded-full bg-[#00C9A7] border border-white/20"></button>
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">Background Mode</label>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+                <button onclick="setBgTheme('dark')" class="py-1.5 px-3 rounded bg-brand-dark border border-white/20 text-white font-medium">Dark Mode</button>
+                <button onclick="setBgTheme('charcoal')" class="py-1.5 px-3 rounded bg-gray-900 border border-white/20 text-white font-medium">Charcoal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="fixed top-9 left-0 right-0 z-40 transition-all duration-300 glass-panel border-b border-white/10" id="mainHeader">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-lg gold-gradient-bg flex items-center justify-center text-brand-dark font-serif font-bold text-xl shadow-lg shadow-brand-gold/20 editable-text" data-key="brand-abbr">
+                    CID
+                </div>
+                <div>
+                    <span class="font-serif text-xl font-bold tracking-tight text-white block editable-text" data-key="brand-title">Classic</span>
+                    <span class="text-[10px] tracking-widest text-brand-gold uppercase block -mt-1 font-semibold editable-text" data-key="brand-subtitle">Interior Designer</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
+                <a href="#home" class="hover:text-brand-gold transition">Home</a>
+                <a href="#services" class="hover:text-brand-gold transition">Services</a>
+                <a href="#design-customizer" class="hover:text-brand-gold transition text-brand-gold font-semibold">POP Studio</a>
+                <a href="#portfolio" class="hover:text-brand-gold transition">Portfolio</a>
+                <a href="#upload-design" class="hover:text-brand-gold transition">Upload Design</a>
+                <a href="#estimator" class="hover:text-brand-gold transition">Estimator</a>
+                <a href="#contact" class="hover:text-brand-gold transition">Contact</a>
+            </nav>
+
+            <!-- Header Action Button -->
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="https://wa.me/919876543210?text=Hello%20Classic%20Interior%20Designer,%20I%20want%20to%20discuss%20a%20POP%20design%20project." target="_blank" class="px-4 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition flex items-center space-x-2 shadow-lg shadow-emerald-900/30">
+                    <i data-lucide="message-square" class="w-4 h-4"></i>
+                    <span>WhatsApp</span>
+                </a>
+                <a href="#contact" class="px-5 py-2.5 rounded-full gold-gradient-bg text-brand-dark font-semibold text-xs hover:opacity-95 transition shadow-lg shadow-brand-gold/20 flex items-center space-x-2">
+                    <i data-lucide="phone-call" class="w-4 h-4"></i>
+                    <span class="editable-text" data-key="header-cta">Book Site Visit</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" class="md:hidden text-gray-300 hover:text-white p-2">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-brand-charcoal border-b border-brand-gold/20 px-4 pt-2 pb-6 space-y-3">
+            <a href="#home" class="block text-gray-300 hover:text-brand-gold py-2">Home</a>
+            <a href="#services" class="block text-gray-300 hover:text-brand-gold py-2">Services</a>
+            <a href="#design-customizer" class="block text-brand-gold py-2 font-semibold">Interactive POP Studio</a>
+            <a href="#portfolio" class="block text-gray-300 hover:text-brand-gold py-2">Portfolio</a>
+            <a href="#upload-design" class="block text-gray-300 hover:text-brand-gold py-2">Upload Custom Design</a>
+            <a href="#estimator" class="block text-gray-300 hover:text-brand-gold py-2">Cost Estimator</a>
+            <a href="#contact" class="block text-gray-300 hover:text-brand-gold py-2">Contact Us</a>
+            <a href="https://wa.me/919876543210?text=Hello%20Classic%20Interior%20Designer" target="_blank" class="inline-block w-full text-center py-3 rounded-lg bg-emerald-600 text-white font-semibold text-sm">
+                Chat on WhatsApp
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen pt-36 pb-16 flex items-center hero-pattern relative overflow-hidden">
+        <!-- Accent Glows -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-amber-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Text Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full border border-brand-gold/30 bg-brand-gold/10 text-brand-gold text-xs font-semibold tracking-wider uppercase">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                        <span class="editable-text" data-key="hero-badge">Classic Interior Designer & Master Plaster Artistry</span>
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight">
+                        <span class="editable-text" data-key="hero-h1-main">Timeless Aesthetics with</span> <span class="gold-gradient-text italic editable-text" data-key="hero-h1-gold">Classic POP</span> <span class="editable-text" data-key="hero-h1-end">Interiors.</span>
+                    </h1>
+                    
+                    <p class="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 editable-text" data-key="hero-subtext">
+                        At Classic Interior Designer, we transform plain ceilings and walls into architectural masterpieces. Upload your reference design, try our live 3D customizer, or choose from our luxury plaster catalog.
+                    </p>
+
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#design-customizer" class="w-full sm:w-auto px-8 py-4 rounded-full gold-gradient-bg text-brand-dark font-bold text-base hover:shadow-xl hover:shadow-brand-gold/20 transition flex items-center justify-center space-x-2">
+                            <i data-lucide="palette" class="w-5 h-5"></i>
+                            <span class="editable-text" data-key="hero-btn-primary">Try Interactive POP Studio</span>
+                        </a>
+                        <a href="#estimator" class="w-full sm:w-auto px-8 py-4 rounded-full border border-brand-gold/40 text-gray-200 hover:text-white hover:border-brand-gold transition flex items-center justify-center space-x-2">
+                            <i data-lucide="calculator" class="w-5 h-5"></i>
+                            <span class="editable-text" data-key="hero-btn-secondary">Calculate Project Cost</span>
+                        </a>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="pt-8 border-t border-white/10 grid grid-cols-3 gap-4 text-center lg:text-left">
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-serif font-bold text-brand-gold editable-text" data-key="stat1-val">1,200+</p>
+                            <p class="text-xs text-gray-400 uppercase tracking-wider editable-text" data-key="stat1-lbl">Ceilings Crafted</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-serif font-bold text-brand-gold editable-text" data-key="stat2-val">15+ Yrs</p>
+                            <p class="text-xs text-gray-400 uppercase tracking-wider editable-text" data-key="stat2-lbl">Craftsman Expertise</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-serif font-bold text-brand-gold editable-text" data-key="stat3-val">100%</p>
+                            <p class="text-xs text-gray-400 uppercase tracking-wider editable-text" data-key="stat3-lbl">Moisture-Proof Guarantee</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hero Visual Card -->
+                <div class="lg:col-span-5">
+                    <div class="relative rounded-2xl p-2 bg-gradient-to-b from-brand-gold/40 to-transparent shadow-2xl">
+                        <div class="relative rounded-xl overflow-hidden bg-brand-charcoal aspect-[4/5] group">
+                            <!-- Hero Image -->
+                            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80" 
+                                 alt="Modern False Ceiling Design" 
+                                 class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-700">
+                            
+                            <!-- Overlay Gradient -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-80"></div>
+                            
+                            <!-- Floating Badge -->
+                            <div class="absolute bottom-6 left-6 right-6 p-4 rounded-xl glass-panel border border-white/10">
+                                <div class="flex items-center space-x-3">
+                                    <div class="p-2.5 rounded-lg bg-brand-gold/20 text-brand-gold">
+                                        <i data-lucide="lightbulb" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-serif font-semibold text-white editable-text" data-key="hero-card-title">Bespoke Cove & Accent Lighting</h4>
+                                        <p class="text-xs text-gray-300 editable-text" data-key="hero-card-desc">Seamless POP finishing with hidden warm LED channels.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW FEATURE: Interactive Design Customizer Studio -->
+    <section id="design-customizer" class="py-20 bg-brand-dark relative border-t border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-brand-gold text-xs font-semibold tracking-widest uppercase">Interactive POP Studio</span>
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white mt-2">Design Your Ceiling & Moulding Live</h2>
+                <p class="text-gray-400 mt-3 text-sm sm:text-base">
+                    Customize ceiling layers, paint finishes, and warm LED profile colors to visually preview your dream interior before installation.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-center bg-brand-charcoal p-6 sm:p-8 rounded-3xl border border-brand-gold/30 shadow-2xl">
+                <!-- Visual Preview Box -->
+                <div class="lg:col-span-7">
+                    <div id="customizerStage" class="relative w-full h-80 sm:h-96 rounded-2xl overflow-hidden border border-white/10 flex flex-col items-center justify-center transition-all duration-500 shadow-inner" style="background: radial-gradient(circle, #2A2825 0%, #121110 100%);">
+                        
+                        <!-- Dynamic Ceiling Panel Mockup -->
+                        <div id="stageCeilingPanel" class="w-3/4 h-3/5 rounded-xl border-4 transition-all duration-500 flex flex-col items-center justify-center p-4 relative shadow-2xl" style="border-color: #D4AF37; background: #1A1918; box-shadow: 0 0 35px rgba(212, 175, 55, 0.4);">
+                            <div id="stageIsland" class="w-1/2 h-1/2 rounded-lg border-2 border-white/30 flex items-center justify-center transition-all duration-300">
+                                <span id="stageLabel" class="text-xs text-brand-gold font-serif font-bold tracking-widest uppercase text-center">Modern Double Cove</span>
+                            </div>
+                        </div>
+
+                        <!-- Live Feature Tags -->
+                        <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center text-xs text-gray-300 bg-brand-dark/80 px-4 py-2 rounded-xl border border-white/10">
+                            <div>Preset: <span id="tagStyle" class="text-brand-gold font-bold">Double Layer Tray</span></div>
+                            <div>Lighting: <span id="tagLED" class="text-amber-300 font-bold">Warm Gold Glow</span></div>
+                            <div>Finish: <span id="tagFinish" class="text-white font-bold">Velvet Matte</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customizer Control Controls -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <label class="block text-xs uppercase font-bold tracking-wider text-brand-gold mb-2">1. Ceiling Pattern Style</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="updateStudioPreset('cove', 'Double Cove Tray', '#D4AF37')" class="p-3 rounded-xl bg-brand-dark border border-white/10 text-left hover:border-brand-gold transition text-xs">
+                                <p class="font-bold text-white">Double Cove Tray</p>
+                                <p class="text-gray-400 text-[10px]">Perimeter ambient LED pocket</p>
+                            </button>
+                            <button onclick="updateStudioPreset('island', 'Floating Center Island', '#E6C670')" class="p-3 rounded-xl bg-brand-dark border border-white/10 text-left hover:border-brand-gold transition text-xs">
+                                <p class="font-bold text-white">Floating Island</p>
+                                <p class="text-gray-400 text-[10px]">Suspended central drop panel</p>
+                            </button>
+                            <button onclick="updateStudioPreset('moulding', 'French Moulding Frame', '#AA771C')" class="p-3 rounded-xl bg-brand-dark border border-white/10 text-left hover:border-brand-gold transition text-xs">
+                                <p class="font-bold text-white">Classic Moulding</p>
+                                <p class="text-gray-400 text-[10px]">Victorian wall & ceiling trims</p>
+                            </button>
+                            <button onclick="updateStudioPreset('fluted', 'Minimalist Fluted Line', '#FFFFFF')" class="p-3 rounded-xl bg-brand-dark border border-white/10 text-left hover:border-brand-gold transition text-xs">
+                                <p class="font-bold text-white">3D Fluted Stripes</p>
+                                <p class="text-gray-400 text-[10px]">Modern linear texture strip</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase font-bold tracking-wider text-brand-gold mb-2">2. Ambient Cove LED Glow Color</label>
+                        <div class="flex space-x-3">
+                            <button onclick="updateStudioLED('Warm Gold', 'rgba(212, 175, 55, 0.6)')" class="w-9 h-9 rounded-full border-2 border-white/40 bg-[#D4AF37] shadow-lg"></button>
+                            <button onclick="updateStudioLED('Warm White 3000K', 'rgba(255, 220, 150, 0.7)')" class="w-9 h-9 rounded-full border-2 border-white/40 bg-[#FFDC96] shadow-lg"></button>
+                            <button onclick="updateStudioLED('Cool Ice White', 'rgba(180, 230, 255, 0.7)')" class="w-9 h-9 rounded-full border-2 border-white/40 bg-[#B4E6FF] shadow-lg"></button>
+                            <button onclick="updateStudioLED('Royal Amber', 'rgba(255, 140, 0, 0.7)')" class="w-9 h-9 rounded-full border-2 border-white/40 bg-[#FF8C00] shadow-lg"></button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase font-bold tracking-wider text-brand-gold mb-2">3. Paint Surface Finish</label>
+                        <select onchange="updateStudioFinish(this.value)" class="w-full bg-brand-dark border border-white/10 rounded-xl px-4 py-3 text-white text-xs focus:border-brand-gold focus:outline-none">
+                            <option value="Velvet Matte Ivory">Velvet Matte Ivory Polish</option>
+                            <option value="Royal Satin White">Royal Satin White Gloss</option>
+                            <option value="Champagne Metallic Accent">Champagne Metallic Accent</option>
+                            <option value="Raw Natural Plaster Finish">Raw Natural Plaster Finish</option>
+                        </select>
+                    </div>
+
+                    <button onclick="applyStudioDesignToInquiry()" class="w-full py-4 rounded-xl gold-gradient-bg text-brand-dark font-bold text-sm hover:opacity-95 transition flex items-center justify-center space-x-2">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        <span>Apply Custom Studio Design to Inquiry Form</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-brand-charcoal relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-16">
+                <div class="max-w-3xl">
+                    <span class="text-brand-gold text-xs font-semibold tracking-widest uppercase editable-text" data-key="services-tag">Our Craft & Expertise</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white mt-2 editable-text" data-key="services-h2">Specialized POP Interior Solutions</h2>
+                    <p class="text-gray-400 mt-4 text-sm sm:text-base editable-text" data-key="services-desc">
+                        From modern minimalistic tray ceilings to ornate classic wall moldings, we turn plain gypsum and Plaster of Paris into luxury architectural art.
+                    </p>
+                </div>
+                <div id="adminServiceControls" class="hidden">
+                    <button onclick="addNewServiceCard()" class="px-4 py-2 rounded-lg bg-emerald-600 text-white text-xs font-bold flex items-center space-x-1">
+                        <i data-lucide="plus" class="w-4 h-4"></i> <span>Add New Service</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8" id="servicesGrid">
+                
+                <!-- Service Card 1 -->
+                <div class="bg-brand-dark rounded-2xl p-6 border border-white/5 hover:border-brand-gold/40 transition-all duration-300 group hover:-translate-y-2 shadow-xl flex flex-col justify-between relative">
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold mb-6 group-hover:bg-brand-gold group-hover:text-brand-dark transition duration-300">
+                            <i data-lucide="layers" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-serif font-semibold text-white mb-3 editable-text" data-key="srv1-title">POP False Ceilings</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4 editable-text" data-key="srv1-desc">
+                            Multi-layered floating ceilings, perimeter cove lighting pockets, floating islands, and ambient gypsum drop ceilings for modern living spaces.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-brand-gold/80 space-y-2 pt-4 border-t border-white/10 font-medium">
+                        <li class="flex items-center"><i data-lucide="check" class="w-3.5 h-3.5 mr-2"></i> Hidden LED Channels</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-3.5 h-3.5 mr-2"></i> Thermal & Acoustic Insulation</li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="bg-brand-dark rounded-2xl p-6 border border-white/5 hover:border-brand-gold/40 transition-all duration-300 group hover:-translate-y-2 shadow-xl flex flex-col justify-between relative">
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold mb-6 group-hover:bg-brand-gold group-hover:text-brand-dark transition duration-300">
+                            <i data-lucide="grid" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-serif font-semibold text-white mb-3 editable-text" data-key="srv2-title">Wall Moulding & Panels</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4 editable-text" data-key="srv2-desc">
+                            Classic French Wainscoting, geometric wall trims, 3D accent wall panels, and mirror-bordered POP framing for grand hallways and bedrooms.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-brand-gold/80 space-y-2 pt-4 border-t border-white/10 font-medium">
+                        <li class="flex items-center"><i data-lucide="check" class="w-3.5 h-3.5 mr-2"></i> Precision Corner Joints</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-3.5 h-3.5 mr-2"></i> Custom Grid Proportions</li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="bg-brand-dark rounded-2xl p-6 border border-white/5 hover:border-brand-gold/40 transition-all duration-300 group hover:-translate-y-2 shadow-xl flex flex-col justify-between relative">
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold mb-6 group-hover:bg-brand-gold group-hover:text-brand-dark transition duration-300">
+                            <i data-lucide="arch" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-serif font-semibold text-white mb-3 editable-text" data-key="srv3-title">POP Arches & Pillars</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4 editable-text" data-key="srv3-desc">
+                            Seamless entryway arches, Roman pillars, niches, and handcrafted plaster columns that transform standard door openings into regal gateways.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-brand-gold/80 space-y-2 pt-4 border-t border-white/10 font-medium">
+                        <li class="flex items-center"><i data-lucide="check" class="w-3.5 h-3.5 mr-2"></i> Smooth Curved Finishing</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-3.5 h-3.5 mr-2"></i> High Load-Bearing Frames</li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="bg-brand-dark rounded-2xl p-6 border border-white/5 hover:border-brand-gold/40 transition-all duration-300 group hover:-translate-y-2 shadow-xl flex flex-col justify-between relative">
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold mb-6 group-hover:bg-brand-gold group-hover:text-brand-dark transition duration-300">
+                            <i data-lucide="flower-2" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-serif font-semibold text-white mb-3 editable-text" data-key="srv4-title">Cornice & Ceiling Roses</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4 editable-text" data-key="srv4-desc">
+                            Intricate ceiling borders, decorative floral center medallions, carved light rings, and Victorian plaster moldings.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-brand-gold/80 space-y-2 pt-4 border-t border-white/10 font-medium">
+                        <li class="flex items-center"><i data-lucide="check" class="w-3.5 h-3.5 mr-2"></i> Handcrafted Artistry</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-3.5 h-3.5 mr-2"></i> Crack-Resistant Mixture</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Cost Estimator Tool -->
+    <section id="estimator" class="py-20 bg-brand-dark relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-brand-gold text-xs font-semibold tracking-widest uppercase editable-text" data-key="est-tag">Instant Transparency</span>
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white mt-2 editable-text" data-key="est-h2">Interactive POP Cost Estimator</h2>
+                <p class="text-gray-400 mt-3 text-sm sm:text-base editable-text" data-key="est-desc">
+                    Calculate budget estimates for your home or commercial space based on dimensions, design complexity, and paint finish.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Estimator Input Form -->
+                <div class="lg:col-span-7 bg-brand-charcoal p-6 sm:p-8 rounded-2xl border border-white/10 shadow-2xl space-y-6">
+                    <h3 class="text-lg font-serif font-semibold text-white border-b border-white/10 pb-4 flex items-center justify-between">
+                        <span>Project Parameters</span>
+                        <span class="text-xs text-brand-gold font-sans font-normal">Pricing updated 2026</span>
+                    </h3>
+
+                    <!-- Room Dimensions -->
+                    <div class="space-y-3">
+                        <label class="block text-sm font-medium text-gray-300">1. Room Dimensions (in Feet)</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <span class="text-xs text-gray-400 block mb-1">Length (ft)</span>
+                                <input type="number" id="roomLength" value="15" min="5" max="100" class="w-full bg-brand-dark border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-gold focus:outline-none transition">
+                            </div>
+                            <div>
+                                <span class="text-xs text-gray-400 block mb-1">Width (ft)</span>
+                                <input type="number" id="roomWidth" value="12" min="5" max="100" class="w-full bg-brand-dark border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-gold focus:outline-none transition">
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 flex items-center mt-1">
+                            Total Area: <span id="calculatedSqFt" class="text-brand-gold font-bold ml-1">180</span> sq. ft.
+                        </p>
+                    </div>
+
+                    <!-- Design Type Selection -->
+                    <div class="space-y-3">
+                        <label class="block text-sm font-medium text-gray-300">2. Select POP Design Tier</label>
+                        <div class="grid sm:grid-cols-3 gap-3">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="designTier" value="115" id="tier1Radio" class="peer hidden" checked onchange="calculatePOPEstimate()">
+                                <div class="p-4 rounded-xl bg-brand-dark border border-white/10 peer-checked:border-brand-gold peer-checked:bg-brand-gold/10 transition text-center">
+                                    <h4 class="text-sm font-semibold text-white editable-text" data-key="tier1-name">Basic Cove</h4>
+                                    <p class="text-xs text-gray-400 mt-1 editable-text" data-key="tier1-desc">Single perimeter cove with LED tray.</p>
+                                    <span class="inline-block mt-2 text-xs font-bold text-brand-gold" id="tier1PriceTag">₹115 / sq.ft</span>
+                                </div>
+                            </label>
+
+                            <label class="cursor-pointer">
+                                <input type="radio" name="designTier" value="165" id="tier2Radio" class="peer hidden" onchange="calculatePOPEstimate()">
+                                <div class="p-4 rounded-xl bg-brand-dark border border-white/10 peer-checked:border-brand-gold peer-checked:bg-brand-gold/10 transition text-center">
+                                    <h4 class="text-sm font-semibold text-white editable-text" data-key="tier2-name">Premium Layered</h4>
+                                    <p class="text-xs text-gray-400 mt-1 editable-text" data-key="tier2-desc">Dual-layer step design & center island.</p>
+                                    <span class="inline-block mt-2 text-xs font-bold text-brand-gold" id="tier2PriceTag">₹165 / sq.ft</span>
+                                </div>
+                            </label>
+
+                            <label class="cursor-pointer">
+                                <input type="radio" name="designTier" value="230" id="tier3Radio" class="peer hidden" onchange="calculatePOPEstimate()">
+                                <div class="p-4 rounded-xl bg-brand-dark border border-white/10 peer-checked:border-brand-gold peer-checked:bg-brand-gold/10 transition text-center">
+                                    <h4 class="text-sm font-semibold text-white editable-text" data-key="tier3-name">Luxury + Moulding</h4>
+                                    <p class="text-xs text-gray-400 mt-1 editable-text" data-key="tier3-desc">Intricate ceiling + Wall moulding trims.</p>
+                                    <span class="inline-block mt-2 text-xs font-bold text-brand-gold" id="tier3PriceTag">₹230 / sq.ft</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Additional Options -->
+                    <div class="space-y-3">
+                        <label class="block text-sm font-medium text-gray-300">3. Finish & Paint Selection</label>
+                        <select id="paintFinish" onchange="calculatePOPEstimate()" class="w-full bg-brand-dark border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-gold focus:outline-none transition">
+                            <option value="35" id="paintOpt1">Premium Acrylic Emulsion (+₹35/sq.ft)</option>
+                            <option value="55" id="paintOpt2">Velvet Matte Royal Polish (+₹55/sq.ft)</option>
+                            <option value="85" id="paintOpt3">Luxe Metallic / Texture Accent Finish (+₹85/sq.ft)</option>
+                        </select>
+                    </div>
+
+                    <!-- LED Profile Strip Option -->
+                    <div class="flex items-center justify-between p-4 bg-brand-dark rounded-xl border border-white/5">
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="zap" class="w-5 h-5 text-brand-gold"></i>
+                            <div>
+                                <p class="text-sm font-medium text-white editable-text" data-key="est-led-title">Include Warm LED Profile Strips Wiring</p>
+                                <p class="text-xs text-gray-400 editable-text" data-key="est-led-sub">Pre-coving aluminum track installation</p>
+                            </div>
+                        </div>
+                        <input type="checkbox" id="includeLED" onchange="calculatePOPEstimate()" class="w-5 h-5 accent-brand-gold cursor-pointer" checked>
+                    </div>
+                </div>
+
+                <!-- Price Breakdown Display Card -->
+                <div class="lg:col-span-5 bg-gradient-to-b from-brand-charcoal to-brand-dark p-6 sm:p-8 rounded-2xl border border-brand-gold/30 shadow-2xl relative">
+                    <div class="absolute -top-3 right-6 px-3 py-1 rounded-full gold-gradient-bg text-brand-dark text-xs font-bold uppercase tracking-wider">
+                        Estimate Summary
+                    </div>
+
+                    <h3 class="text-xl font-serif font-bold text-white mb-6">Investment Cost Breakdown</h3>
+
+                    <div class="space-y-4 text-sm border-b border-white/10 pb-6">
+                        <div class="flex justify-between items-center text-gray-300">
+                            <span>Base POP Material & Framing</span>
+                            <span id="costMaterial" class="font-semibold text-white">₹14,400</span>
+                        </div>
+                        <div class="flex justify-between items-center text-gray-300">
+                            <span>Artisan Labor & Smooth Sanding</span>
+                            <span id="costLabor" class="font-semibold text-white">₹6,300</span>
+                        </div>
+                        <div class="flex justify-between items-center text-gray-300">
+                            <span>Paint & Surface Primer Finish</span>
+                            <span id="costPaint" class="font-semibold text-white">₹6,300</span>
+                        </div>
+                        <div class="flex justify-between items-center text-gray-300">
+                            <span>LED Aluminum Track Framing</span>
+                            <span id="costLED" class="font-semibold text-white">₹2,500</span>
+                        </div>
+                    </div>
+
+                    <!-- Total Price Display -->
+                    <div class="pt-6">
+                        <p class="text-xs text-gray-400 uppercase tracking-widest">Estimated Total Cost</p>
+                        <div class="flex items-baseline space-x-2 mt-1">
+                            <span class="text-4xl sm:text-5xl font-serif font-bold gold-gradient-text" id="totalEstimate">₹29,500</span>
+                            <span class="text-xs text-gray-400">*Incl. taxes & material</span>
+                        </div>
+                        <p class="text-xs text-brand-gold/80 mt-2">
+                            Estimated Execution Time: <span id="executionDays" class="font-semibold">3 - 4 Days</span>
+                        </p>
+                    </div>
+
+                    <button onclick="transferEstimateToForm()" class="mt-8 w-full py-4 rounded-xl gold-gradient-bg text-brand-dark font-bold text-sm hover:opacity-95 transition shadow-lg shadow-brand-gold/20 flex items-center justify-center space-x-2">
+                        <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
+                        <span>Lock This Estimate & Book Site Measurement</span>
+                    </button>
+                    
+                    <p class="text-[11px] text-gray-500 text-center mt-3">
+                        *Final quote confirmed after complimentary physical site measurement.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Portfolio Gallery -->
+    <section id="portfolio" class="py-20 bg-brand-charcoal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <span class="text-brand-gold text-xs font-semibold tracking-widest uppercase editable-text" data-key="port-tag">Visual Showcase</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white mt-2 editable-text" data-key="port-h2">Classic Design Portfolio</h2>
+                </div>
+
+                <!-- Gallery Category Filters -->
+                <div class="flex flex-wrap gap-2 mt-6 md:mt-0">
+                    <button onclick="filterGallery('all')" class="filter-btn active px-4 py-2 rounded-full text-xs font-semibold transition bg-brand-gold text-brand-dark" data-filter="all">All Designs</button>
+                    <button onclick="filterGallery('ceiling')" class="filter-btn px-4 py-2 rounded-full text-xs font-semibold transition bg-brand-dark text-gray-300 border border-white/10 hover:border-brand-gold" data-filter="ceiling">False Ceilings</button>
+                    <button onclick="filterGallery('wall')" class="filter-btn px-4 py-2 rounded-full text-xs font-semibold transition bg-brand-dark text-gray-300 border border-white/10 hover:border-brand-gold" data-filter="wall">Wall Mouldings</button>
+                    <button onclick="filterGallery('arch')" class="filter-btn px-4 py-2 rounded-full text-xs font-semibold transition bg-brand-dark text-gray-300 border border-white/10 hover:border-brand-gold" data-filter="arch">Arches & Niches</button>
+                </div>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolioGrid">
+                
+                <!-- Item 1 -->
+                <div class="portfolio-item ceiling group relative rounded-xl overflow-hidden bg-brand-dark border border-white/10">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Royal Cove Ceiling" class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 p-6 flex flex-col justify-end">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-wider editable-text" data-key="port1-tag">Living Room</span>
+                        <h3 class="text-lg font-serif font-bold text-white editable-text" data-key="port1-title">Modern Multi-Tier Cove Ceiling</h3>
+                        <p class="text-xs text-gray-300 mt-1 editable-text" data-key="port1-desc">Warm ambient indirect LED lighting with concealed curtain grooves.</p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="portfolio-item wall group relative rounded-xl overflow-hidden bg-brand-dark border border-white/10">
+                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" alt="Wainscoting Panel" class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 p-6 flex flex-col justify-end">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-wider editable-text" data-key="port2-tag">Bedroom & Wall</span>
+                        <h3 class="text-lg font-serif font-bold text-white editable-text" data-key="port2-title">Neo-Classical French Wainscoting</h3>
+                        <p class="text-xs text-gray-300 mt-1 editable-text" data-key="port2-desc">Precision POP wall trim grids painted in warm ivory.</p>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="portfolio-item arch group relative rounded-xl overflow-hidden bg-brand-dark border border-white/10">
+                    <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800&q=80" alt="Architectural Arch" class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 p-6 flex flex-col justify-end">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-wider editable-text" data-key="port3-tag">Passage Arch</span>
+                        <h3 class="text-lg font-serif font-bold text-white editable-text" data-key="port3-title">Seamless Curved Foyer Archway</h3>
+                        <p class="text-xs text-gray-300 mt-1 editable-text" data-key="port3-desc">Smooth radius POP arch transition with spotlight niches.</p>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="portfolio-item ceiling group relative rounded-xl overflow-hidden bg-brand-dark border border-white/10">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80" alt="Minimalist Floating Ceiling" class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 p-6 flex flex-col justify-end">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-wider editable-text" data-key="port4-tag">Dining Area</span>
+                        <h3 class="text-lg font-serif font-bold text-white editable-text" data-key="port4-title">Floating Island Ceiling</h3>
+                        <p class="text-xs text-gray-300 mt-1 editable-text" data-key="port4-desc">Suspended POP central panel with halo perimeter glow.</p>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="portfolio-item wall group relative rounded-xl overflow-hidden bg-brand-dark border border-white/10">
+                    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80" alt="3D Geometric Panel" class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 p-6 flex flex-col justify-end">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-wider editable-text" data-key="port5-tag">TV Unit Backing</span>
+                        <h3 class="text-lg font-serif font-bold text-white editable-text" data-key="port5-title">3D Fluted POP Wall Accent</h3>
+                        <p class="text-xs text-gray-300 mt-1 editable-text" data-key="port5-desc">Vertical plaster fluting for rich tactile depth.</p>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="portfolio-item arch group relative rounded-xl overflow-hidden bg-brand-dark border border-white/10">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80" alt="Cornice Moulding" class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 p-6 flex flex-col justify-end">
+                        <span class="text-brand-gold text-xs font-bold uppercase tracking-wider editable-text" data-key="port6-tag">Classic Villa</span>
+                        <h3 class="text-lg font-serif font-bold text-white editable-text" data-key="port6-title">Victorian Cornice & Medallion</h3>
+                        <p class="text-xs text-gray-300 mt-1 editable-text" data-key="port6-desc">Ornate plaster casting along ceiling borders.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Design Upload Section -->
+    <section id="upload-design" class="py-20 bg-brand-dark relative border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-brand-gold text-xs font-semibold tracking-widest uppercase">Customization Center</span>
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white mt-2">Have a Design Idea in Mind?</h2>
+                <p class="text-gray-400 mt-3 text-sm sm:text-base">
+                    Upload your own POP design photo or Pinterest inspiration. Our master craftsmen will review your photo and provide a tailored cost & execution estimate.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-center bg-brand-charcoal p-6 sm:p-10 rounded-3xl border border-brand-gold/30 shadow-2xl">
+                <!-- Dropzone Area -->
+                <div class="lg:col-span-6 space-y-4">
+                    <div id="dropzone" class="border-2 border-dashed border-brand-gold/40 hover:border-brand-gold rounded-2xl p-8 text-center bg-brand-dark/50 transition cursor-pointer flex flex-col items-center justify-center min-h-[260px]">
+                        <input type="file" id="designPhotoInput" accept="image/*" class="hidden" onchange="handlePhotoUpload(event)">
+                        <div id="uploadPlaceholder" class="space-y-3">
+                            <div class="w-14 h-14 rounded-full bg-brand-gold/10 text-brand-gold flex items-center justify-center mx-auto">
+                                <i data-lucide="upload-cloud" class="w-8 h-8"></i>
+                            </div>
+                            <div>
+                                <p class="text-white font-semibold text-base">Click or Drag & Drop your POP design photo here</p>
+                                <p class="text-xs text-gray-400 mt-1">Supports PNG, JPG, WEBP (Max 10MB)</p>
+                            </div>
+                        </div>
+                        <div id="uploadPreview" class="hidden w-full relative">
+                            <img id="previewImage" src="" alt="Custom Design Preview" class="max-h-64 rounded-xl mx-auto object-cover border border-white/20">
+                            <button onclick="removeUploadedPhoto(event)" class="absolute top-2 right-2 bg-red-600 text-white p-2 rounded-full hover:bg-red-700 transition">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Photo Project Details Form -->
+                <div class="lg:col-span-6 space-y-4">
+                    <h3 class="text-xl font-serif font-bold text-white">Upload Details & Site Visit Request</h3>
+                    <p class="text-xs text-gray-400">Attach your image above and fill out quick contact info to receive an estimate on WhatsApp/Call.</p>
+                    
+                    <div class="space-y-3">
+                        <input type="text" id="uploadName" placeholder="Your Full Name *" class="w-full bg-brand-dark border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:border-brand-gold focus:outline-none transition">
+                        <input type="tel" id="uploadPhone" placeholder="Mobile / WhatsApp Number *" class="w-full bg-brand-dark border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:border-brand-gold focus:outline-none transition">
+                        <textarea id="uploadNotes" rows="3" placeholder="Specific notes (e.g. Living room 20x15 ft, need cove light channels)..." class="w-full bg-brand-dark border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:border-brand-gold focus:outline-none transition"></textarea>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                        <button onclick="submitCustomPhotoDesign()" class="flex-1 py-3.5 rounded-xl gold-gradient-bg text-brand-dark font-bold text-sm hover:opacity-95 transition flex items-center justify-center space-x-2">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                            <span>Submit Design for Quote</span>
+                        </button>
+                        <button onclick="shareDesignViaWhatsApp()" class="py-3.5 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition flex items-center justify-center space-x-2">
+                            <i data-lucide="message-square" class="w-4 h-4"></i>
+                            <span>Send via WhatsApp</span>
+                        </button>
+                    </div>
+                    <p id="uploadStatusMsg" class="text-xs font-semibold text-brand-gold hidden"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Before / After Transformation Comparison -->
+    <section class="py-20 bg-brand-dark border-t border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-brand-gold text-xs font-semibold tracking-widest uppercase">The POP Difference</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white">See Real Transformation</h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Plain flat concrete slab ceilings make rooms feel boxy and uninspired. Drag the slider to see how our custom POP false ceiling and wall molding add warmth, dimension, and luxury lighting.
+                    </p>
+
+                    <div class="space-y-4 pt-2">
+                        <div class="flex items-start space-x-3">
+                            <div class="p-2 rounded-lg bg-brand-gold/10 text-brand-gold mt-1">
+                                <i data-lucide="sun" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-sm">Concealed Wiring & Lighting</h4>
+                                <p class="text-xs text-gray-400">All electrical wires, conduits, and LED drivers are completely hidden.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3">
+                            <div class="p-2 rounded-lg bg-brand-gold/10 text-brand-gold mt-1">
+                                <i data-lucide="shield-check" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-sm">Crack & Sag Resistance</h4>
+                                <p class="text-xs text-gray-400">Reinforced glass fiber plaster sheets engineered to stay immaculate for decades.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Comparison Slider -->
+                <div class="lg:col-span-7">
+                    <div class="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl select-none" id="sliderContainer">
+                        <!-- After Image (Background) -->
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80" alt="After POP Design" class="w-full h-80 sm:h-96 object-cover">
+                        <div class="absolute top-4 right-4 bg-brand-gold text-brand-dark px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow">
+                            AFTER: Designer POP Ceiling
+                        </div>
+
+                        <!-- Before Image (Clipped Overlay) -->
+                        <div class="absolute inset-0 overflow-hidden" id="beforeImageWrapper" style="width: 50%;">
+                            <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80" alt="Before POP Design" class="w-full h-80 sm:h-96 object-cover filter grayscale contrast-125 max-w-none" id="beforeImage">
+                            <div class="absolute top-4 left-4 bg-brand-charcoal/90 text-gray-200 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border border-white/20">
+                                BEFORE: Plain Slab
+                            </div>
+                        </div>
+
+                        <!-- Slider Handle Controls -->
+                        <div class="absolute top-0 bottom-0 w-1 bg-brand-gold cursor-ew-resize" id="sliderHandle" style="left: 50%;">
+                            <div class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full gold-gradient-bg text-brand-dark flex items-center justify-center shadow-2xl border-2 border-white">
+                                <i data-lucide="sliders-horizontal" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-center text-xs text-gray-400 mt-3">Drag slider left or right to compare before & after</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="why-us" class="py-20 bg-brand-charcoal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-gold text-xs font-semibold tracking-widest uppercase">Unmatched Precision</span>
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white mt-2">Why Homeowners Choose Classic Interior Designer</h2>
+                <p class="text-gray-400 mt-3 text-sm sm:text-base">We combine traditional master moulding techniques with modern laser-guided leveling technology.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <div class="bg-brand-dark p-8 rounded-2xl border border-white/5 space-y-4 text-center sm:text-left">
+                    <div class="w-12 h-12 rounded-xl bg-brand-gold/10 text-brand-gold flex items-center justify-center mx-auto sm:mx-0">
+                        <i data-lucide="award" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-lg font-serif font-semibold text-white">Master Artisans</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Our skilled plaster craftsmen have over 15 years of hands-on experience in high-end luxury residential projects.
+                    </p>
+                </div>
+
+                <div class="bg-brand-dark p-8 rounded-2xl border border-white/5 space-y-4 text-center sm:text-left">
+                    <div class="w-12 h-12 rounded-xl bg-brand-gold/10 text-brand-gold flex items-center justify-center mx-auto sm:mx-0">
+                        <i data-lucide="droplet-off" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-lg font-serif font-semibold text-white">Moisture & Fire Resistant</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        We use premium grade POP blended with anti-sag polymers and fire-retardant fiber mesh for superior durability.
+                    </p>
+                </div>
+
+                <div class="bg-brand-dark p-8 rounded-2xl border border-white/5 space-y-4 text-center sm:text-left">
+                    <div class="w-12 h-12 rounded-xl bg-brand-gold/10 text-brand-gold flex items-center justify-center mx-auto sm:mx-0">
+                        <i data-lucide="clock" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-lg font-serif font-semibold text-white">Clean & Timely Execution</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Dust-controlled sanding process, complete floor protection covers, and strict adherence to project deadlines.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking / Contact Form Section -->
+    <section id="contact" class="py-20 bg-brand-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 bg-brand-charcoal rounded-3xl p-6 sm:p-12 border border-brand-gold/30 shadow-2xl overflow-hidden relative">
+                
+                <!-- Decorative background artwork -->
+                <div class="absolute -right-16 -bottom-16 w-80 h-80 bg-brand-gold/5 rounded-full blur-3xl pointer-events-none"></div>
+
+                <!-- Left Content: Enhanced Contact Details -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-brand-gold text-xs font-semibold tracking-widest uppercase editable-text" data-key="contact-tag">Contact Classic Interior Designer</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white editable-text" data-key="contact-h2">Schedule Free Site Measurement</h2>
+                    <p class="text-gray-400 text-sm leading-relaxed editable-text" data-key="contact-desc">
+                        Our senior plaster designer will visit your property with physical POP material samples, laser measuring tools, and design catalogs.
+                    </p>
+
+                    <div class="space-y-4 pt-4 border-t border-white/10">
+                        <div class="flex items-center space-x-4 text-gray-300 text-sm">
+                            <div class="w-10 h-10 rounded-lg bg-brand-dark border border-white/10 flex items-center justify-center text-brand-gold">
+                                <i data-lucide="phone" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400">Direct Phone Support</p>
+                                <p class="font-semibold text-white editable-text" data-key="cnt-phones">+91 98765 43210 / +91 91234 56789</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4 text-gray-300 text-sm">
+                            <div class="w-10 h-10 rounded-lg bg-brand-dark border border-white/10 flex items-center justify-center text-brand-gold">
+                                <i data-lucide="message-square" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400">WhatsApp Instant Connect</p>
+                                <a href="https://wa.me/919876543210?text=Hi%20Classic%20Interior%20Designer" target="_blank" class="font-semibold text-emerald-400 hover:underline flex items-center">
+                                    <span class="editable-text" data-key="cnt-whatsapp">Chat +91 98765 43210</span>
+                                    <i data-lucide="external-link" class="w-3.5 h-3.5 ml-1"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4 text-gray-300 text-sm">
+                            <div class="w-10 h-10 rounded-lg bg-brand-dark border border-white/10 flex items-center justify-center text-brand-gold">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400">Official Email</p>
+                                <p class="font-semibold text-white editable-text" data-key="cnt-email">info@classicinteriordesigner.com</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4 text-gray-300 text-sm">
+                            <div class="w-10 h-10 rounded-lg bg-brand-dark border border-white/10 flex items-center justify-center text-brand-gold">
+                                <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400">Studio & Workshop Address</p>
+                                <p class="font-semibold text-white editable-text" data-key="cnt-address">Classic Studio, Suite 402, Design Avenue, Main City Centre</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Form -->
+                <div class="lg:col-span-7 bg-brand-dark p-6 sm:p-8 rounded-2xl border border-white/10">
+                    <form id="bookingForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs text-gray-300 font-medium mb-1">Full Name *</label>
+                                <input type="text" required placeholder="e.g. Rahul Sharma" class="w-full bg-brand-charcoal border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:border-brand-gold focus:outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-300 font-medium mb-1">Phone Number *</label>
+                                <input type="tel" required placeholder="+91 98765 00000" class="w-full bg-brand-charcoal border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:border-brand-gold focus:outline-none transition">
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs text-gray-300 font-medium mb-1">Property Location / City</label>
+                                <input type="text" placeholder="e.g. Bandra West, Mumbai" class="w-full bg-brand-charcoal border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:border-brand-gold focus:outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-300 font-medium mb-1">Estimated Carpet Area (sq ft)</label>
+                                <input type="number" id="formArea" placeholder="e.g. 500" class="w-full bg-brand-charcoal border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:border-brand-gold focus:outline-none transition">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs text-gray-300 font-medium mb-1">Selected Design Details / Note</label>
+                            <input type="text" id="formEstimateNote" readonly placeholder="Fill estimator or studio customizer above to auto-populate..." class="w-full bg-brand-charcoal/50 border border-brand-gold/30 text-brand-gold font-semibold rounded-lg px-4 py-2.5 text-xs focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs text-gray-300 font-medium mb-1">Project Details or Specific Requirements</label>
+                            <textarea rows="3" placeholder="Tell us about room heights, lighting preferences, or desired completion date..." class="w-full bg-brand-charcoal border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:border-brand-gold focus:outline-none transition"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-xl gold-gradient-bg text-brand-dark font-bold text-sm hover:opacity-95 transition shadow-xl shadow-brand-gold/20 flex items-center justify-center space-x-2">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                            <span>Submit Request to Classic Interior Designer</span>
+                        </button>
+                    </form>
+
+                    <!-- Success Message Container -->
+                    <div id="formSuccess" class="hidden text-center py-10 space-y-4">
+                        <div class="w-16 h-16 rounded-full gold-gradient-bg text-brand-dark flex items-center justify-center mx-auto">
+                            <i data-lucide="check-circle-2" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif font-bold text-white">Request Received!</h3>
+                        <p class="text-gray-300 text-sm max-w-sm mx-auto">
+                            Thank you! A senior designer from Classic Interior Designer will contact you within 2 hours to confirm your site measurement slot.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark border-t border-white/10 py-12 text-gray-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg gold-gradient-bg flex items-center justify-center text-brand-dark font-serif font-bold text-base">
+                    CID
+                </div>
+                <span class="font-serif text-lg font-bold text-white">Classic Interior Designer</span>
+            </div>
+
+            <p class="text-xs text-gray-500">
+                &copy; 2026 Classic Interior Designer. All rights reserved. Premium Plaster Artistry.
+            </p>
+
+            <div class="flex space-x-4 text-gray-400">
+                <a href="https://wa.me/919876543210" target="_blank" class="hover:text-emerald-400 transition"><i data-lucide="message-square" class="w-5 h-5"></i></a>
+                <a href="#" class="hover:text-brand-gold transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                <a href="#" class="hover:text-brand-gold transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // -------------------------------------------------------------
+        // Decoration & POP Price Customizer Logic
+        // -------------------------------------------------------------
+        function togglePriceCustomizer() {
+            document.getElementById('priceCustomizerDrawer').classList.toggle('hidden');
+        }
+
+        function updatePriceRatesFromAdmin() {
+            const basicRate = document.getElementById('rateBasic').value || 115;
+            const premiumRate = document.getElementById('ratePremium').value || 165;
+            const luxuryRate = document.getElementById('rateLuxury').value || 230;
+
+            const paintAcrylic = document.getElementById('ratePaintAcrylic').value || 35;
+            const paintVelvet = document.getElementById('ratePaintVelvet').value || 55;
+            const paintLuxe = document.getElementById('ratePaintLuxe').value || 85;
+
+            // Update radio values and tags
+            document.getElementById('tier1Radio').value = basicRate;
+            document.getElementById('tier2Radio').value = premiumRate;
+            document.getElementById('tier3Radio').value = luxuryRate;
+
+            document.getElementById('tier1PriceTag').textContent = `₹${basicRate} / sq.ft`;
+            document.getElementById('tier2PriceTag').textContent = `₹${premiumRate} / sq.ft`;
+            document.getElementById('tier3PriceTag').textContent = `₹${luxuryRate} / sq.ft`;
+
+            // Update paint dropdown options
+            document.getElementById('paintOpt1').value = paintAcrylic;
+            document.getElementById('paintOpt1').textContent = `Premium Acrylic Emulsion (+₹${paintAcrylic}/sq.ft)`;
+            
+            document.getElementById('paintOpt2').value = paintVelvet;
+            document.getElementById('paintOpt2').textContent = `Velvet Matte Royal Polish (+₹${paintVelvet}/sq.ft)`;
+
+            document.getElementById('paintOpt3').value = paintLuxe;
+            document.getElementById('paintOpt3').textContent = `Luxe Metallic / Texture Accent Finish (+₹${paintLuxe}/sq.ft)`;
+
+            calculatePOPEstimate();
+        }
+
+        function calculatePOPEstimate() {
+            const len = parseFloat(document.getElementById('roomLength').value) || 0;
+            const width = parseFloat(document.getElementById('roomWidth').value) || 0;
+            const sqFt = len * width;
+
+            document.getElementById('calculatedSqFt').textContent = sqFt;
+
+            // Selected Tier
+            const selectedTierEl = document.querySelector('input[name="designTier"]:checked');
+            const tierRate = selectedTierEl ? parseFloat(selectedTierEl.value) : 115;
+
+            // Paint finish rate
+            const paintRate = parseFloat(document.getElementById('paintFinish').value) || 35;
+
+            // LED Track fixed cost
+            const ledIncluded = document.getElementById('includeLED').checked;
+            const ledBaseCost = parseFloat(document.getElementById('rateLEDTrack').value) || 2500;
+            const ledCost = ledIncluded ? ledBaseCost : 0;
+
+            // Calculations
+            const laborRatio = (parseFloat(document.getElementById('rateLaborRatio').value) || 30) / 100;
+
+            const materialCost = Math.round(sqFt * tierRate * (1 - laborRatio));
+            const laborCost = Math.round(sqFt * tierRate * laborRatio);
+            const paintCost = Math.round(sqFt * paintRate);
+            const total = materialCost + laborCost + paintCost + ledCost;
+
+            // Update Breakdown UI
+            document.getElementById('costMaterial').textContent = `₹${materialCost.toLocaleString()}`;
+            document.getElementById('costLabor').textContent = `₹${laborCost.toLocaleString()}`;
+            document.getElementById('costPaint').textContent = `₹${paintCost.toLocaleString()}`;
+            document.getElementById('costLED').textContent = `₹${ledCost.toLocaleString()}`;
+            document.getElementById('totalEstimate').textContent = `₹${total.toLocaleString()}`;
+
+            // Estimated Execution Days
+            const days = Math.max(2, Math.ceil(sqFt / 60));
+            document.getElementById('executionDays').textContent = `${days} - ${days + 1} Days`;
+        }
+
+        function saveRatesNotification() {
+            const msg = document.getElementById('saveRatesMsg');
+            msg.classList.remove('hidden');
+            setTimeout(() => msg.classList.add('hidden'), 3000);
+        }
+
+        // Attach listeners for inputs
+        document.getElementById('roomLength').addEventListener('input', calculatePOPEstimate);
+        document.getElementById('roomWidth').addEventListener('input', calculatePOPEstimate);
+
+        function transferEstimateToForm() {
+            const sqFt = document.getElementById('calculatedSqFt').textContent;
+            const total = document.getElementById('totalEstimate').textContent;
+            
+            document.getElementById('formArea').value = sqFt;
+            document.getElementById('formEstimateNote').value = `Estimated POP Quote: ${total} for ${sqFt} sq.ft. area.`;
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // -------------------------------------------------------------
+        // Live Site Edit Mode Logic
+        // -------------------------------------------------------------
+        let isEditMode = false;
+
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            const btnText = document.getElementById('editModeText');
+            const editBtn = document.getElementById('editModeBtn');
+            const editables = document.querySelectorAll('.editable-text');
+            const serviceControls = document.getElementById('adminServiceControls');
+
+            if (isEditMode) {
+                btnText.textContent = "Disable Edit Mode (Editing Active)";
+                editBtn.classList.remove('bg-brand-gold/10', 'text-brand-gold');
+                editBtn.classList.add('bg-red-600', 'text-white');
+                if (serviceControls) serviceControls.classList.remove('hidden');
+
+                editables.forEach(el => {
+                    el.contentEditable = "true";
+                    el.classList.add('outline-dashed', 'outline-1', 'outline-amber-400', 'bg-amber-400/10', 'rounded', 'px-1');
+                });
+            } else {
+                btnText.textContent = "Enable Edit Mode";
+                editBtn.classList.add('bg-brand-gold/10', 'text-brand-gold');
+                editBtn.classList.remove('bg-red-600', 'text-white');
+                if (serviceControls) serviceControls.classList.add('hidden');
+
+                editables.forEach(el => {
+                    el.contentEditable = "false";
+                    el.classList.remove('outline-dashed', 'outline-1', 'outline-amber-400', 'bg-amber-400/10', 'rounded', 'px-1');
+                });
+            }
+        }
+
+        function toggleCustomizerDrawer() {
+            document.getElementById('customizerDrawer').classList.toggle('hidden');
+        }
+
+        function setThemeAccent(hexColor) {
+            document.documentElement.style.setProperty('--brand-gold', hexColor);
+            const textGolds = document.querySelectorAll('.text-brand-gold');
+            textGolds.forEach(el => el.style.color = hexColor);
+        }
+
+        function setBgTheme(mode) {
+            if(mode === 'dark') {
+                document.body.style.backgroundColor = '#121110';
+            } else if(mode === 'charcoal') {
+                document.body.style.backgroundColor = '#1A1918';
+            }
+        }
+
+        function addNewServiceCard() {
+            const grid = document.getElementById('servicesGrid');
+            const newCard = document.createElement('div');
+            newCard.className = 'bg-brand-dark rounded-2xl p-6 border border-white/5 shadow-xl flex flex-col justify-between relative';
+            newCard.innerHTML = `
+                <div>
+                    <div class="w-14 h-14 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold mb-6">
+                        <i data-lucide="sparkles" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-semibold text-white mb-3 editable-text" contenteditable="${isEditMode}">New Custom POP Service</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4 editable-text" contenteditable="${isEditMode}">Click Edit Mode above to customize this service description.</p>
+                </div>
+            `;
+            grid.appendChild(newCard);
+            lucide.createIcons();
+        }
+
+        // -------------------------------------------------------------
+        // Interactive POP Design Customizer Studio Logic
+        // -------------------------------------------------------------
+        function updateStudioPreset(type, title, color) {
+            const panel = document.getElementById('stageCeilingPanel');
+            const label = document.getElementById('stageLabel');
+            const tagStyle = document.getElementById('tagStyle');
+
+            label.textContent = title;
+            tagStyle.textContent = title;
+            panel.style.borderColor = color;
+
+            if(type === 'cove') {
+                panel.className = "w-3/4 h-3/5 rounded-xl border-4 flex flex-col items-center justify-center p-4 relative shadow-2xl transition-all duration-500";
+            } else if(type === 'island') {
+                panel.className = "w-2/3 h-2/3 rounded-full border-8 flex flex-col items-center justify-center p-4 relative shadow-2xl transition-all duration-500";
+            } else if(type === 'moulding') {
+                panel.className = "w-4/5 h-4/5 rounded-none border-2 border-double flex flex-col items-center justify-center p-4 relative shadow-2xl transition-all duration-500";
+            } else if(type === 'fluted') {
+                panel.className = "w-3/4 h-3/5 rounded-lg border-y-8 flex flex-col items-center justify-center p-4 relative shadow-2xl transition-all duration-500";
+            }
+        }
+
+        function updateStudioLED(colorName, glowRgba) {
+            const panel = document.getElementById('stageCeilingPanel');
+            document.getElementById('tagLED').textContent = colorName;
+            panel.style.boxShadow = `0 0 45px ${glowRgba}`;
+        }
+
+        function updateStudioFinish(finishName) {
+            document.getElementById('tagFinish').textContent = finishName;
+        }
+
+        function applyStudioDesignToInquiry() {
+            const style = document.getElementById('tagStyle').textContent;
+            const led = document.getElementById('tagLED').textContent;
+            const finish = document.getElementById('tagFinish').textContent;
+
+            const noteField = document.getElementById('formEstimateNote');
+            noteField.value = `Studio Custom Design: [${style}] with [${led}] & [${finish}]`;
+
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // -------------------------------------------------------------
+        // Portfolio Category Filter Logic
+        // -------------------------------------------------------------
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.portfolio-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => {
+                if(btn.getAttribute('data-filter') === category) {
+                    btn.classList.add('bg-brand-gold', 'text-brand-dark');
+                    btn.classList.remove('bg-brand-dark', 'text-gray-300');
+                } else {
+                    btn.classList.remove('bg-brand-gold', 'text-brand-dark');
+                    btn.classList.add('bg-brand-dark', 'text-gray-300');
+                }
+            });
+
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // -------------------------------------------------------------
+        // Before / After Dual Image Slider Logic
+        // -------------------------------------------------------------
+        const container = document.getElementById('sliderContainer');
+        const beforeWrapper = document.getElementById('beforeImageWrapper');
+        const beforeImg = document.getElementById('beforeImage');
+        const handle = document.getElementById('sliderHandle');
+        let isSliding = false;
+
+        function updateSlider(x) {
+            const rect = container.getBoundingClientRect();
+            let position = x - rect.left;
+            if (position < 0) position = 0;
+            if (position > rect.width) position = rect.width;
+            
+            const percentage = (position / rect.width) * 100;
+            beforeWrapper.style.width = `${percentage}%`;
+            handle.style.left = `${percentage}%`;
+            beforeImg.style.width = `${rect.width}px`;
+        }
+
+        container.addEventListener('mousedown', (e) => { isSliding = true; updateSlider(e.clientX); });
+        window.addEventListener('mouseup', () => { isSliding = false; });
+        window.addEventListener('mousemove', (e) => { if (isSliding) updateSlider(e.clientX); });
+
+        container.addEventListener('touchstart', (e) => { isSliding = true; updateSlider(e.touches[0].clientX); });
+        window.addEventListener('touchend', () => { isSliding = false; });
+        window.addEventListener('touchmove', (e) => { if (isSliding) updateSlider(e.touches[0].clientX); });
+
+        window.addEventListener('resize', () => {
+            const rect = container.getBoundingClientRect();
+            beforeImg.style.width = `${rect.width}px`;
+        });
+
+        // -------------------------------------------------------------
+        // Form Submission Simulation
+        // -------------------------------------------------------------
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            document.getElementById('bookingForm').classList.add('hidden');
+            document.getElementById('formSuccess').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
